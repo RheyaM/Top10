@@ -1,0 +1,23 @@
+with open("mam.txt","r") as file:
+    countmam=0
+    for line in file:
+       for x in range(len(line)-2):
+           if line[x]=="I" and line[x+1]=="f" and line[x+2]==" ":
+               countmam=countmam+1
+    with open("mam.txt","a") as file:
+      file.write("\n"+str(countmam))
+
+with open("if.txt","r") as file:
+    countif=0
+    for line in file:
+       for x in range(len(line)-2):
+           if line[x]=="I" and line[x+1]=="f" and line[x+2]==" ":
+               countif=countif+1
+    with open("if.txt","a") as file:
+      file.write("\n"+str(countif))
+if countif>countmam:
+   print("if.txt has more ifs")
+elif countmam>countif:
+   print("mam.txt has more ifs")
+else:
+   print("They have the same number of Ifs")
