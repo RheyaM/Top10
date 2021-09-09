@@ -1,0 +1,85 @@
+def longest_run(L):
+    """
+    Assumes L is a list of integers containing at least 2 elements.
+    Finds the longest run of numbers in L, where the longest run can
+    either be monotonically increasing or monotonically decreasing. 
+    In case of a tie for the longest run, choose the longest run 
+    that occurs first.
+    Does not modify the list.
+    Returns the sum of the longest run. 
+    """
+    xstart = 0
+    xend = 0
+    xlength = 0
+    start=0
+    end=0
+    new = True
+    for k in range(len(L)):
+        if k == len(L)-1:
+            if L[k]>=L[k-1]:
+                end = k
+                length = end-start
+                if length > xlength:
+                    xstart = start
+                    xend = end
+                    xlength = length
+                else:
+                    break
+                
+        elif L[k+1] >= L[k]:
+            if new == True:
+                start = k
+                new = False
+            end = k + 1
+        else:
+            new = True
+            length = end-start
+            if length > xlength:
+                xstart = start
+                xend = end
+                xlength = length
+        
+    dstart = 0
+    dend = 0
+    dlength = 0
+    start=0
+    end=0
+    new = True
+    for k in range(len(L)):
+        if k == len(L)-1:
+            if L[k]<=L[k-1]:
+                end = k
+                length = end-start
+                if length > dlength:
+                    dstart = start
+                    dend = end
+                    dlength = length
+                else:
+                    break
+        elif L[k+1] <= L[k]:
+            if new == True:
+                start = k
+                new = False
+            end = k + 1
+        else:
+            new = True
+            length = end-start
+            if length > dlength:
+                dstart = start
+                dend = end
+                dlength = length
+
+        
+    if dlength>xlength:
+        thelist=(L[dstart:dend+1])
+    elif xlength>dlength:
+        thelist=(L[xstart:xend+1])
+    else:
+        if xstart<dstart:
+            thelist=(L[xstart:xend+1])
+        else:
+            thelist=(L[dstart:dend+1])
+    total = 0
+    for value in thelist:
+        total+=value
+    return(total)
